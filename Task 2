@@ -1,0 +1,82 @@
+import java.util.Scanner;
+
+public class StudentGradeTracker {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input student details
+        System.out.print("Enter the student's name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter the student's ID: ");
+        String studentID = scanner.nextLine();
+
+        // Input number of subjects or assignments
+        System.out.print("Enter the number of subjects or assignments: ");
+        int numSubjects = scanner.nextInt();
+
+        double[] grades = new double[numSubjects];
+        double total = 0;
+
+        // Input grades
+        for (int i = 0; i < numSubjects; i++) {
+            System.out.print("Enter grade for subject/assignment " + (i + 1) + ": ");
+            grades[i] = scanner.nextDouble();
+            total += grades[i];
+        }
+
+        // Calculate average grade
+        double average = total / numSubjects;
+
+        // Determine letter grade
+        char letterGrade = getLetterGrade(average);
+
+        // Determine GPA (on a 4.0 scale)
+        double gpa = getGPA(letterGrade);
+
+        // Display student grade report
+        System.out.println("\n--- Student Grade Report ---");
+        System.out.println("Name: " + name);
+        System.out.println("ID: " + studentID);
+        System.out.println("Total Score: " + total);
+        System.out.println("Average Score: " + average);
+        System.out.println("Final Grade: " + letterGrade);
+        System.out.println("GPA: " + gpa);
+
+        scanner.close();
+    }
+
+    // Method to determine letter grade based on average score
+    public static char getLetterGrade(double average) {
+        if (average >= 90) {
+            return 'A';
+        } else if (average >= 80) {
+            return 'B';
+        } else if (average >= 70) {
+            return 'C';
+        } else if (average >= 60) {
+            return 'D';
+        } else {
+            return 'F';
+        }
+    }
+
+    // Method to determine GPA based on letter grade
+    public static double getGPA(char letterGrade) {
+        switch (letterGrade) {
+            case 'A':
+                return 4.0;
+            case 'B':
+                return 3.0;
+            case 'C':
+                return 2.0;
+            case 'D':
+                return 1.0;
+            case 'F':
+                return 0.0;
+            default:
+                return 0.0;
+        }
+    }
+}
+
